@@ -1,0 +1,61 @@
+<!-- Botón para mostrar u ocultar el formulario -->
+<button (click)="mostrarFormulario = !mostrarFormulario">
+  {{ mostrarFormulario ? "Cancelar" : "Agregar Empleado" }}
+</button>
+
+<!-- Formulario para agregar empleado (Se muestra solo si mostrarFormulario es true) -->
+<form
+  *ngIf="mostrarFormulario"
+  [formGroup]="empleadoForm"
+  (ngSubmit)="agregarEmpleado()"
+>
+  <div>
+    <label>Nombre:</label>
+    <input type="text" formControlName="nombre" required />
+  </div>
+
+  <div>
+    <label>Puesto:</label>
+    <select formControlName="puesto">
+      <option *ngFor="let puesto of puestos" [value]="puesto.name">
+        {{ puesto.name }}
+      </option>
+    </select>
+  </div>
+
+  <div>
+    <label>Fecha de Ingreso:</label>
+    <input type="date" formControlName="fechaIngreso" required />
+  </div>
+
+  <div>
+    <label>Salario:</label>
+    <input type="text" formControlName="salario" required />
+  </div>
+
+  <button type="submit" [disabled]="empleadoForm.invalid">
+    Agregar Empleado
+  </button>
+</form>
+
+<!-- Tabla de empleados -->
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Puesto</th>
+      <th>Fecha de Ingreso</th>
+      <th>Salario</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let empleado of empleados">
+      <td>{{ empleado.id }}</td>
+      <td>{{ empleado.nombre }}</td>
+      <td>{{ empleado.puesto }}</td>
+      <td>{{ empleado.fechaIngreso }}</td>
+      <td>{{ empleado.salario }}</td>
+    </tr>
+  </tbody>
+</table>
