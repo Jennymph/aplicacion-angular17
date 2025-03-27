@@ -1,5 +1,8 @@
 <!-- Botón para mostrar u ocultar el formulario -->
-<button (click)="mostrarFormulario = !mostrarFormulario">
+<button
+  *ngIf="!empleadoSeleccionado"
+  (click)="mostrarFormulario = !mostrarFormulario"
+>
   {{ mostrarFormulario ? "Cancelar" : "Agregar Empleado" }}
 </button>
 
@@ -7,7 +10,7 @@
 <form
   *ngIf="mostrarFormulario"
   [formGroup]="empleadoForm"
-  (ngSubmit)="agregarEmpleado()"
+  (ngSubmit)="empleadoSeleccionado ? actualizarEmpleado() : agregarEmpleado()"
 >
   <div>
     <label>Nombre:</label>
@@ -17,8 +20,8 @@
   <div>
     <label>Puesto:</label>
     <select formControlName="puesto">
-      <option *ngFor="let puesto of puestos" [value]="puesto.name">
-        {{ puesto.name }}
+      <option *ngFor="let puesto of puestos" [value]="puesto.puesto">
+        {{ puesto.puesto }}
       </option>
     </select>
   </div>
@@ -33,9 +36,25 @@
     <input type="text" formControlName="salario" required />
   </div>
 
-  <button type="submit" [disabled]="empleadoForm.invalid">
-    Agregar Empleado
-  </button>
+  <div>
+    <label>Edad (opcinal):</label>
+    <input type="text" formControlName="edad" />
+  </div>
+
+  <!-- Mostrar botones de guardar y cancelar solo cuando un empleado esté seleccionado para edición -->
+  <div *ngIf="empleadoSeleccionado">
+    <button type="submit" [disabled]="empleadoForm.invalid">
+      Guardar Cambios
+    </button>
+    <button type="button" (click)="cancelarEdicion()">Cancelar</button>
+  </div>
+
+  <!-- Mostrar botón de Agregar Empleado solo si no estamos editando -->
+  <div *ngIf="!empleadoSeleccionado">
+    <button type="submit" [disabled]="empleadoForm.invalid">
+      Agregar Empleado
+    </button>
+  </div>
 </form>
 
 <!-- Tabla de empleados -->
@@ -47,6 +66,7 @@
       <th>Puesto</th>
       <th>Fecha de Ingreso</th>
       <th>Salario</th>
+      <th>Edad</th>
     </tr>
   </thead>
   <tbody>
@@ -56,6 +76,11 @@
       <td>{{ empleado.puesto }}</td>
       <td>{{ empleado.fechaIngreso }}</td>
       <td>{{ empleado.salario }}</td>
+      <td>{{ empleado.edad }}</td>
+      <td>
+        <button (click)="editarEmpleado(empleado)">Editar</button>
+        <button (click)="eliminarEmpleado(empleado.id)">Eliminar</button>
+      </td>
     </tr>
   </tbody>
 </table>
