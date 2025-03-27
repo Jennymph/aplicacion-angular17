@@ -1,5 +1,51 @@
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css");
+
+.custom-navbar {
+  background-color: #ffffff;
+  font-weight: 400;
+  font-family: "Open Sans", sans-serif;
+
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .brand-highlight {
+    padding: 0 12px;
+    gap: 8px; // Espaciado entre el ícono y el texto
+
+    .icon-p {
+      background-color: #e0e1fd;
+      margin-right: 8px; // Espacio entre el ícono y el texto
+      color: #5f6acd;
+      width: 40px;
+      height: 40px;
+      border-radius: 20%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .iinfo {
+      flex-direction: column; // Apilar texto y párrafo
+      color: #212227;
+      font-size: 1rem;
+      padding-top: 10px;
+
+      p {
+        margin-top: 5px; // Espacio entre el texto y el párrafo
+        font-size: 0.6rem;
+        color: #5f6acd;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .user-name {
+    padding-right: 18px;
+    color: #212227;
+  }
 }

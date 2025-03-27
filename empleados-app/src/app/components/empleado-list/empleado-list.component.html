@@ -2,6 +2,7 @@
 <button
   *ngIf="!empleadoSeleccionado"
   (click)="mostrarFormulario = !mostrarFormulario"
+  class="btn btn-empleado mb-3"
 >
   {{ mostrarFormulario ? "Cancelar" : "Agregar Empleado" }}
 </button>
@@ -11,54 +12,83 @@
   *ngIf="mostrarFormulario"
   [formGroup]="empleadoForm"
   (ngSubmit)="empleadoSeleccionado ? actualizarEmpleado() : agregarEmpleado()"
+  class="border p-4 rounded shadow-sm"
 >
-  <div>
-    <label>Nombre:</label>
-    <input type="text" formControlName="nombre" required />
+  <div class="mb-3">
+    <label for="nombre" class="form-label">Nombre:</label>
+    <input
+      type="text"
+      formControlName="nombre"
+      class="form-control"
+      id="nombre"
+      required
+    />
   </div>
 
-  <div>
-    <label>Puesto:</label>
-    <select formControlName="puesto">
+  <div class="mb-3">
+    <label for="puesto" class="form-label">Puesto:</label>
+    <select formControlName="puesto" class="form-select" id="puesto">
       <option *ngFor="let puesto of puestos" [value]="puesto.puesto">
         {{ puesto.puesto }}
       </option>
     </select>
   </div>
 
-  <div>
-    <label>Fecha de Ingreso:</label>
-    <input type="date" formControlName="fechaIngreso" required />
+  <div class="mb-3">
+    <label for="fechaIngreso" class="form-label">Fecha de Ingreso:</label>
+    <input
+      type="date"
+      formControlName="fechaIngreso"
+      class="form-control"
+      id="fechaIngreso"
+      required
+    />
   </div>
 
-  <div>
-    <label>Salario:</label>
-    <input type="text" formControlName="salario" required />
+  <div class="mb-3">
+    <label for="salario" class="form-label">Salario:</label>
+    <input
+      type="text"
+      formControlName="salario"
+      class="form-control"
+      id="salario"
+      required
+    />
   </div>
 
-  <div>
-    <label>Edad (opcinal):</label>
-    <input type="text" formControlName="edad" />
+  <div class="mb-3">
+    <label for="edad" class="form-label">Edad (opcional):</label>
+    <input type="text" formControlName="edad" class="form-control" id="edad" />
   </div>
 
   <!-- Mostrar botones de guardar y cancelar solo cuando un empleado esté seleccionado para edición -->
-  <div *ngIf="empleadoSeleccionado">
-    <button type="submit" [disabled]="empleadoForm.invalid">
+  <div *ngIf="empleadoSeleccionado" class="d-flex justify-content-between">
+    <button
+      type="submit"
+      [disabled]="empleadoForm.invalid"
+      class="btn btn-success"
+    >
       Guardar Cambios
     </button>
-    <button type="button" (click)="cancelarEdicion()">Cancelar</button>
+    <button type="button" (click)="cancelarEdicion()" class="btn btn-secondary">
+      Cancelar
+    </button>
   </div>
 
   <!-- Mostrar botón de Agregar Empleado solo si no estamos editando -->
-  <div *ngIf="!empleadoSeleccionado">
-    <button type="submit" [disabled]="empleadoForm.invalid">
+  <div *ngIf="!empleadoSeleccionado" class="d-flex justify-content-between">
+    <button
+      type="submit"
+      [disabled]="empleadoForm.invalid"
+      class="btn btn-empleado"
+    >
       Agregar Empleado
     </button>
   </div>
 </form>
 
 <!-- Tabla de empleados -->
-<table>
+<table class="table table-striped mt-4">
   <thead>
     <tr>
       <th>ID</th>
@@ -67,6 +97,7 @@
       <th>Fecha de Ingreso</th>
       <th>Salario</th>
       <th>Edad</th>
+      <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -78,8 +109,19 @@
       <td>{{ empleado.salario }}</td>
       <td>{{ empleado.edad }}</td>
       <td>
-        <button (click)="editarEmpleado(empleado)">Editar</button>
-        <button (click)="eliminarEmpleado(empleado.id)">Eliminar</button>
+        <button
+          (click)="editarEmpleado(empleado)"
+          class="btn btn-warning btn-sm"
+          style="margin-right: 10px"
+        >
+          Editar
+        </button>
+        <button
+          (click)="eliminarEmpleado(empleado.id)"
+          class="btn btn-danger btn-sm"
+        >
+          Eliminar
+        </button>
       </td>
     </tr>
   </tbody>

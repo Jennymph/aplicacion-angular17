@@ -1,8 +1,10 @@
-<app-navbar> </app-navbar>
-<main class="main">
-  <div class="content">
-    <app-empleado-list> </app-empleado-list>
-  </div>
-</main>
+<body>
+  <app-navbar> </app-navbar>
+  <main class="main d-flex justify-content-center align-items-center">
+    <div class="content container my-4 p-4 border rounded shadow info-fonte">
+      <app-empleado-list> </app-empleado-list>
+    </div>
+  </main>
 
-<router-outlet />
+  <router-outlet></router-outlet>
+</body>
